@@ -1,0 +1,67 @@
+Object Introspector 
+=================================
+by Stefan Deusch, June 12, 2014
+
+
+1. Summary
+===========
+This project is a POC of a command console for showing and manipulating Java objects. 
+
+2. Design 
+===========
+Core Java 6 using the Apache Commons-Lang-3.1 and beanutils-core-1.8.3 libraries for reflection of Java beans. 
+
+3. Requirements
+===============
+Java 6 JRE or JDK installed with executable 'java' on the PATH, or with JAVA_HOME set explicitly to the 
+installation directory of Java. Bash shell (works on Mac by default, or on Windows with cygwin installed)
+
+4. Deployment
+=============
+Unzip the tar.gz file of this project to a directory, or clone it from this git repository. 
+
+5. Usage
+==============
+Start the command console by running the bash shell script:
+> ./run.sh 
+
+    The console output looks like this:
+    deuscs01-mac:ObjectIntrospector deuscs01$ ./run.sh 
+    Using Classpath: .:./lib/commons-beanutils-core-1.8.3.jar:./lib/commons-lang3-3.1.jar:./lib/commons-logging-api-1.1.jar:bin
+    /Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/:/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home//bin/java
+    Using version :/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home//bin/java
+    Now running: /Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home//bin/java -cp .:./lib/commons-beanutils-core-1.8.3.jar:./lib/commons-lang3-3.1.jar:./lib/commons-logging-api-1.1.jar:bin introspect.ObjectShell
+
+    Loaded object of type [test.Sample] with value Sample [name=John Doe, income=85000, alpha=1.0E-9]
+
+The last line prints out that an instance of object test.Sample has been loaded.
+
+To print out the value of one attribute of this object, type 'GET propertyname', e.g. 
+>GET name
+prints out 
+     Object member: name, value = John Doe
+
+To print out all attribute values of the current object, type 'GET *', in our example 
+> GET *
+	Object member: name, value = John Doe
+	Object member: income, value = 85000
+	Object member: alpha, value = 1.0E-9
+	
+To set the value of an existing attribute, type 'SET propertyname=value', e.g. 
+> SET income=90000
+    value of attribute income changed to 90000
+
+Type 'HELP' to get a help screen with instructions of how to use each command.
+Type 'exit' to leave the shell.
+
+
+6. Extension
+============
+The object introspector can be set to a different object instance in the Java Virtual Machine. Type 'USE class'.
+This currently loads a new instance by the fully qualified class name using the empty default constructor of the class. 
+You can print out the values of its attributes with the 'GET' command and change them with the 'SET' command. 
+
+
+
+
+
